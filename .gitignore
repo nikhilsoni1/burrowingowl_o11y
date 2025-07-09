@@ -33,3 +33,4 @@ override.tf.json
 # .terraformrc or terraform.rc config file (contains credentials if used)
 .terraformrc
 terraform.rc
+tfplan.binary

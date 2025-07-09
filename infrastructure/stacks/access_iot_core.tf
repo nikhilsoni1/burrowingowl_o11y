@@ -64,6 +64,7 @@ module "policy" {
   source = "../modules/iot_policy"
   name   = "burrowing_owl_policy"
   policy = data.aws_iam_policy_document.iot_policy.json
+  tags = local.tags
 }
 
 module "attach_policy" {
