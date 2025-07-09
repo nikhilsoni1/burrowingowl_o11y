@@ -1,0 +1,35 @@
+certs/
+# Local .terraform directory (Terraform init, plugins, cache)
+.terraform/
+
+# Terraform plan files
+*.tfplan
+
+# Terraform variable files that may contain secrets
+*.tfvars
+*.tfvars.json
+
+# Sensitive output files
+*.pem
+*.key
+*.crt
+
+# Certificate folder (if you save certs locally)
+certs/
+
+# Auto-generated state files and backups
+terraform.tfstate
+terraform.tfstate.backup
+
+# Crash logs (if Terraform crashes)
+crash.log
+
+# Local override files (machine-specific config)
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# .terraformrc or terraform.rc config file (contains credentials if used)
+.terraformrc
+terraform.rc
