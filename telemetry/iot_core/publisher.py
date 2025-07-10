@@ -5,7 +5,7 @@ from telemetry.utils.logger import logger
 
 
 def sanitize_json(data):
-    return json.dumps(data)
+    return json.dumps(data, indent=4, sort_keys=True)
 
 
 def publish_message(message_topic, message_payload):
