@@ -67,6 +67,6 @@ module "iot_sink_topic_rule" {
   topic       = "topic/burrowing_owl_metrics"
   bucket_name = module.iot_data_sink_bucket.bucket_name
   role_arn    = module.iot_sink_role.iam_role_arn
-  s3_key_root = "telemetry_data"
+  s3_key_root = "telemetry_data/$${parse_time('yyyy', timestamp())}/$${parse_time('MM', timestamp())}/$${parse_time('dd', timestamp())}/$${parse_time('HH', timestamp())}/$${newuuid()}.json"
   tags        = local.tags
 }

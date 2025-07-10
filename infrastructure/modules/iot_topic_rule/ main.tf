@@ -6,7 +6,7 @@ resource "aws_iot_topic_rule" "this" {
 
   s3 {
     bucket_name = var.bucket_name
-    key         = "${var.s3_key_root}/${uuid()}.json"
+    key         = var.s3_key_root
     role_arn    = var.role_arn
   }
 
