@@ -36,3 +36,6 @@ terraform.rc
 tfplan.binary
 
 .venv/
+.env
+**/**/__pycache__
+**/**/*.log
