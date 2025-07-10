@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "iot_policy" {
       "iot:Receive"
     ]
     resources = [
-      module.burrowing_owl.arn
+      "*"
     ]
   }
 }
@@ -71,4 +71,9 @@ module "attach_policy" {
   source = "../modules/iot_policy_attachment"
   policy_name = module.policy.name
   target      = module.cert.arn
+}
+
+
+data "aws_iot_endpoint" "iot" {
+  endpoint_type = "iot:Data-ATS"
 }
