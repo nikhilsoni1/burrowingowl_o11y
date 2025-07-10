@@ -3,7 +3,7 @@ import datetime
 
 
 class TimeStamp(Metric):
-    metric_name = "timestamp"
+    metric_name = "timestamp_utc"
 
     def generate_metric(self):
         now = datetime.datetime.now(datetime.timezone.utc)
