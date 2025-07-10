@@ -13,5 +13,6 @@ class MetricRegistry:
     def all(self):
         return self._registry
 
+
 # singleton
 metric_registry = MetricRegistry()

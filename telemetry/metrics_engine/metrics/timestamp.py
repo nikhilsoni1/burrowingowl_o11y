@@ -1,6 +1,7 @@
 from telemetry.metrics_engine.base import Metric
 import datetime
 
+
 class TimeStamp(Metric):
     metric_name = "timestamp"
 

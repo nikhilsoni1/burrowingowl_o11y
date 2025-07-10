@@ -13,6 +13,6 @@ def publish_message(message_topic, message_payload):
     result = mqtt_connection.publish(
         topic=message_topic, payload=message_json, qos=mqtt.QoS.AT_LEAST_ONCE
     )
-    message_size = len(message_json.encode('utf-8'))
+    message_size = len(message_json.encode("utf-8"))
     logger.info(f"Published message to topic '{message_topic}': {message_size} bytes")
     return result
