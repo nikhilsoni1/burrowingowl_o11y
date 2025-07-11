@@ -13,10 +13,14 @@ class TailscaleStatus(Metric):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 check=True,
-                text=True
+                text=True,
             )
             status_data = json.loads(result.stdout)
             status_data.pop("Peer", None)
             return status_data
-        except (subprocess.CalledProcessError, json.JSONDecodeError, FileNotFoundError) as e:
+        except (
+            subprocess.CalledProcessError,
+            json.JSONDecodeError,
+            FileNotFoundError,
+        ) as e:
             return dict()

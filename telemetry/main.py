@@ -8,36 +8,21 @@ import datetime
 import os
 from telemetry.utils.logger import logger
 
-# Step 1: Fetch metrics
 metrics = get_all_metric_values()
+result = publish_message("topic/burrowing_owl_metrics", metrics)
 
-# Step 2: Define backup path
-BACKUP_DIR = "unsent_metrics"
-os.makedirs(BACKUP_DIR, exist_ok=True)
-
-try:
-    publish_message("topic/burrowing_owl_metrics", metrics)
-except awscrt.exceptions.AwsCrtError as e:
-    logger.error(f"Failed to publish message: {e}")
+if result is None:
+    BACKUP_DIR = "unsent_metrics"
+    os.makedirs(BACKUP_DIR, exist_ok=True)
+    timestamp_utc = datetime.datetime.now(datetime.timezone.utc)
+    timestamp_utc = timestamp_utc.replace(tzinfo=None)
+    timestamp_utc_stub = timestamp_utc.strftime("%Y%m%d_%H%M%S")
     _uuid = uuid.uuid4().hex
-    ts = datetime.datetime.now(datetime.timezone.utc)
-    ts = ts.replace(tzinfo=None)
+    filename = f"{timestamp_utc_stub}_{_uuid}.json"
+    filepath = os.path.join(BACKUP_DIR, filename)
     payload = dict()
-    payload["uuid"] = _uuid
-    payload["timestamp_utc"] = ts
-    payload["metrics"] = metrics
-    payload["error"] = str(e)
-    ts_stub = ts.strftime("%Y_%m_%d_%H_%M_%S")
-    # Step 5: Save to file
-    backup_filename = f"{ts_stub}_{_uuid}.json"
-    backup_filepath = os.path.join(BACKUP_DIR, backup_filename)
-
-    try:
-        with open(backup_filepath, "w") as f:
-            json.dump(payload, f, indent=4)
-        logger.info(f"Metrics saved to: {backup_filepath}")
-    except Exception as file_error:
-        logger.fatal(f"Failed to save metrics: {file_error}")
-        sys.exit(2)
-
-    sys.exit(1)
+    payload["timestamp_utc"] = timestamp_utc
+    payload["payload"] = metrics
+    with open(filepath, "w") as f:
+        json.dump(payload, f, indent=4, default=str)
+    logger.info(f"Unsent metrics backed up to {filepath}")

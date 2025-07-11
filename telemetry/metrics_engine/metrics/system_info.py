@@ -6,6 +6,7 @@ from telemetry.metrics_engine.base import Metric
 def get_hostname():
     return socket.gethostname()
 
+
 def get_os_version():
     try:
         with open("/etc/os-release", "r") as f:
@@ -15,10 +16,11 @@ def get_os_version():
     except FileNotFoundError:
         return "unknown"
 
+
 def get_device_model():
     try:
         with open("/proc/device-tree/model", "r") as f:
-            return f.read().strip('\x00').strip()
+            return f.read().strip("\x00").strip()
     except FileNotFoundError:
         return "unknown"
 
