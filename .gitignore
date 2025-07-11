@@ -39,3 +39,4 @@ tfplan.binary
 .env
 **/**/__pycache__
 **/**/*.log
+unsent_metrics/
