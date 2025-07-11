@@ -1,4 +1,5 @@
 from awscrt import mqtt
+from awscrt.exceptions import AwsCrtError
 from awsiot import mqtt_connection_builder
 import sys
 from telemetry.utils.logger import logger
@@ -91,4 +92,8 @@ mqtt_connection = mqtt_connection_builder.mtls_from_path(
 
 
 connect_future = mqtt_connection.connect()
-connect_future.result()
+
+try:
+    connect_future.result()
+except AwsCrtError as e:
+    mqtt_connection = None

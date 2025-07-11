@@ -4,7 +4,7 @@ from telemetry.metrics_engine.base import Metric
 
 def parse_mount_status(options: str) -> str:
     """Returns 'rw' or 'ro' based on exact match in mount options."""
-    options_list = [opt.strip() for opt in options.split(',')]
+    options_list = [opt.strip() for opt in options.split(",")]
     if "rw" in options_list:
         return "rw"
     if "ro" in options_list:
@@ -23,7 +23,7 @@ def get_mount_health():
         parts = line.split()
         device = parts[0]
         mount_point = parts[2]
-        options = line[line.find('(')+1:line.find(')')]
+        options = line[line.find("(") + 1 : line.find(")")]
         status = parse_mount_status(options)
 
         if mount_point == "/" and status != "rw":
@@ -33,7 +33,7 @@ def get_mount_health():
             "device": device,
             "mount_point": mount_point,
             "status": status,
-            "full_message": line
+            "full_message": line,
         }
     payload = dict()
     payload["overall_health"] = health

@@ -5,9 +5,9 @@ from telemetry.metrics_engine.base import Metric
 def get_disk_usage(path="/"):
     """Returns disk usage stats for a given path."""
     total, used, free = shutil.disk_usage(path)
-    total_gb = round(total / (1024 ** 3), 2)
-    used_gb = round(used / (1024 ** 3), 2)
-    free_gb = round(free / (1024 ** 3), 2)
+    total_gb = round(total / (1024**3), 2)
+    used_gb = round(used / (1024**3), 2)
+    free_gb = round(free / (1024**3), 2)
     percent_used = round(used / total * 100, 2)
     payload = dict()
     payload["path"] = path
