@@ -42,3 +42,4 @@ tfplan.binary
 **/**/*.log
 unsent_metrics/
 **/**/logs/
+scratch.py
