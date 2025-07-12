@@ -40,3 +40,4 @@ tfplan.binary
 **/**/__pycache__
 **/**/*.log
 unsent_metrics/
+**/**/logs/
