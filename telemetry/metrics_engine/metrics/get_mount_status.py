@@ -17,7 +17,7 @@ def get_mount_health():
     lines = [line for line in output.splitlines() if "mmcblk0" in line]
 
     health = "healthy"
-    partitions = {}
+    partitions = list()
 
     for line in lines:
         parts = line.split()
@@ -29,12 +29,12 @@ def get_mount_health():
         if mount_point == "/" and status != "rw":
             health = "unhealthy"
 
-        partitions[mount_point] = {
-            "device": device,
-            "mount_point": mount_point,
-            "status": status,
-            "full_message": line,
-        }
+        partition_data = dict()
+        partition_data["device"] = device
+        partition_data["mount_point"] = mount_point
+        partition_data["status"] = status
+        partition_data["full_message"] = line
+        partitions.append(partition_data)
     payload = dict()
     payload["overall_health"] = health
     payload["partitions"] = partitions
