@@ -19,6 +19,7 @@ certs/
 
 # Auto-generated state files and backups
 terraform.tfstate
+terraform.tfstate.*.backup
 terraform.tfstate.backup
 
 # Crash logs (if Terraform crashes)
