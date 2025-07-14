@@ -16,7 +16,7 @@ class TailscaleStatus(Metric):
                 text=True,
             )
             status_data = json.loads(result.stdout)
-            status_data.pop("Peer", None)
+            # status_data.pop("Peer", None)
             return status_data
         except (
             subprocess.CalledProcessError,
