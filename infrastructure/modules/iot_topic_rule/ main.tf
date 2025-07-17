@@ -7,7 +7,13 @@ resource "aws_iot_topic_rule" "this" {
   s3 {
     bucket_name = var.bucket_name
     key         = var.s3_key_root
-    role_arn    = var.role_arn
+    role_arn    = var.s3_role_arn
+  }
+
+  kinesis {
+    stream_name   = var.kinesis_stream_name
+    role_arn      = var.kinesis_role_arn
+    partition_key = var.kinesis_partition_key
   }
 
   tags = var.tags
