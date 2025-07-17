@@ -15,7 +15,7 @@ def lambda_handler(event, context):
             b64_data = record['kinesis']['data']
             payload_bytes = base64.b64decode(b64_data)
             size = len(payload_bytes)
-            logger.info(f"[{idx}] 📦 Payload size: {size} bytes at {datetime.utcnow().isoformat()}")
+            logger.info(f"[{idx}] 📦 Payload size: {size} bytes at {_now}")
         except Exception as e:
             logger.error(f"[{idx}] ❌ Failed to process record: {e}")
 

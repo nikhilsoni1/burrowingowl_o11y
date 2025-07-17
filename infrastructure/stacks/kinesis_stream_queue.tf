@@ -105,6 +105,35 @@ module "lambda_logger" {
 # Lambda Event Source Mapping for Kinesis → Lambda
 # -----------------------------------------------------------------------------
 
+
+data "aws_iam_policy_document" "lambda_kinesis_read_policy" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "kinesis:GetRecords",
+      "kinesis:GetShardIterator",
+      "kinesis:DescribeStream",
+      "kinesis:DescribeStreamSummary",
+      "kinesis:ListShards",
+      "kinesis:ListStreams"
+    ]
+    resources = [module.kinesis_stream.kinesis_stream_arn]
+  }
+}
+
+module "lambda_kinesis_read_policy" {
+  source = "../modules/iam_policy"
+  name   = "lambda-kinesis-read-${local.stream_name_prefix}"
+  policy = data.aws_iam_policy_document.lambda_kinesis_read_policy.json
+  tags   = local.tags
+}
+
+module "lambda_kinesis_policy_attachment" {
+  source     = "../modules/iam_role_policy_attachment"
+  role_name  = module.lambda_iam_role.iam_role_name
+  policy_arn = module.lambda_kinesis_read_policy.iam_policy_arn
+}
+
 module "lambda_kinesis_event_source" {
   source              = "../modules/lambda_event_source_mapping"
   event_source_arn    = module.kinesis_stream.kinesis_stream_arn
